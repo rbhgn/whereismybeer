@@ -3,6 +3,7 @@ import './App.css';
 import { getBeersApi } from'./actions/actions'
 import * as request from 'superagent'
 import BeerInfo from'./components/BeerInfo'
+import BreweryInfo from './components/BreweryInfo';
 
 class App extends Component {
   state = {
@@ -49,6 +50,15 @@ class App extends Component {
           name={ this.state.beers[2].name }
           style={ this.state.beers[2].style }
           volume={ this.state.beers[2].volume }
+        /> }
+
+        { this.state.beers && this.state.breweries && <BreweryInfo 
+          address={ this.state.breweries[2].address }
+          beers={ this.state.beers.filter(e => e.brewery === this.state.breweries[2].name) }
+          city={ this.state.breweries[2].city }
+          name={ this.state.breweries[2].name }
+          open={ this.state.breweries[2].open }
+          zipcode={ this.state.breweries[2].zipcode }
         /> }
       </div>
     );
