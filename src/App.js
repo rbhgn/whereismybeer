@@ -11,7 +11,16 @@ class App extends Component {
     beerStyles: null,
     beers: null,
     breweries: null,
+    selectedBeerKegs: null,
+    selectedBeerStyles: null,
     userLocation: null
+  }
+
+  updateSelectedBeerKegs = (v) => {
+    this.setState({selectedBeerKegs: v})
+  }
+  updateSelectedBeerStyles = (v) => {
+    this.setState({selectedBeerStyles: v})
   }
 
   getBeers = () => {
@@ -47,7 +56,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.beerStyles && this.state.beerKegs && <SearchContainer beerStyles={ this.state.beerStyles} beerKegs={ this.state.beerKegs}/>}
+        {this.state.beerStyles && this.state.beerKegs && <SearchContainer 
+          beerStyles={ this.state.beerStyles} 
+          beerKegs={ this.state.beerKegs} 
+          updateSelectedBeerKegs={ this.updateSelectedBeerKegs } 
+          updateSelectedBeerStyles={ this.updateSelectedBeerStyles }
+        />}
 
         {/* { this.state.beers && this.state.breweries && <BeerInfo 
           alcohol={ this.state.beers[2].alcohol }
