@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
+import BeerInfo from './BeerInfo'
 class BreweryInfo extends Component {
 
   render() {
@@ -10,6 +10,13 @@ class BreweryInfo extends Component {
         <p>{ this.props.address }</p>
         <p>{ this.props.zipcode }</p>
         <p>{ this.props.city }</p>
+        { this.props.beers.map(e => <BeerInfo 
+          alcohol={ e.alcohol }
+          keg={ e.keg }
+          name={ e.name }
+          style={ e.style }
+          volume={ e.volume }
+        />)}
       </div>
     );
   }
@@ -24,4 +31,3 @@ BreweryInfo.propTypes = {
   open:     PropTypes.array.isRequired,
   zipcode:  PropTypes.string.isRequired
 }
-

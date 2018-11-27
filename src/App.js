@@ -7,6 +7,8 @@ import BreweryInfo from './components/BreweryInfo';
 
 class App extends Component {
   state = {
+    beerKegs: null,
+    beerStyles: null,
     beers: null,
     breweries: null,
     userLocation: null
@@ -15,7 +17,9 @@ class App extends Component {
   getBeers = () => {
     request
     .get(`https://downloads.oberon.nl/opdracht/bieren.js`)
-    .then(result => this.setState({beers: JSON.parse(result.text).beers}))
+    .then(result  => this.setState({beers: JSON.parse(result.text).beers}))
+    .then(()      => this.setState({beerStyles: [...new Set(this.state.beers.map(e => e.style))]}))
+    .then(()      => this.setState({beerKegs: [...new Set(this.state.beers.map(e => e.keg))]}))
     .catch(err => console.error(err))
   }
 
@@ -43,6 +47,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+
         { this.state.beers && this.state.breweries && <BeerInfo 
           alcohol={ this.state.beers[2].alcohol }
           brewery={ this.state.breweries.find(e => e.name === this.state.beers[2].brewery) }
@@ -60,6 +65,7 @@ class App extends Component {
           open={ this.state.breweries[2].open }
           zipcode={ this.state.breweries[2].zipcode }
         /> }
+
       </div>
     );
   }
