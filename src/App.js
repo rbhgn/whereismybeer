@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-
+const request = require('superagent');
 class App extends Component {
+  state = {
+    breweries: null
+  }
+
+  getBeers = () => {
+    request
+    .get(`https://downloads.oberon.nl/opdracht/brouwerijen.js`)
+    .then(result => this.setState({breweries: JSON.parse(result.text).breweries }))
+    .catch(err => console.error(err))
+    }   
+  
+    componentDidMount() {
+      this.getBeers()
+    }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+
       </div>
     );
   }
