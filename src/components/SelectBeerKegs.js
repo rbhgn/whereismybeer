@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CheckBox from './CheckBox'
 
-class SelectBeerStyles extends Component {
+class SelectBeerKegs extends Component {
   
   handleChange = (value, checked) => {
     let newState = null
@@ -28,9 +28,9 @@ class SelectBeerStyles extends Component {
     );
   }
 }
-export default SelectBeerStyles;
+export default SelectBeerKegs;
 
-SelectBeerStyles.propTypes = {
+SelectBeerKegs.propTypes = {
   beerStyles: PropTypes.array.isRequired,
   updateQuery: PropTypes.func.isRequired
 }

@@ -1,20 +1,28 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import CheckBox from './CheckBox'
-import SelectBeerStyles from './SelectBeerStyles';
+import SelectBeerStyles from './SelectBeerStyles'
+import SelectBeerKegs from './SelectBeerKegs'
 
 
 class SearchContainer extends Component {
-  state = {query: {SelectBeerStyles: null}}
+  state = {
+      SelectBeerStyles: null,
+      SelectBeerKegs: null
+    } 
 
   updateQueryBeerStyles = (a) => {
-    this.setState({query: {SelectBeerStyles: a }} )
+    this.setState({SelectBeerStyles: a } )
+  }
+
+  updateQueryBeerKegs = (a) => {
+    this.setState({SelectBeerKegs: a } )
   }
 
   render() {
     return (
       <div>
         <SelectBeerStyles beerStyles={ this.props.beerStyles } updateQuery={ this.updateQueryBeerStyles }/>
+        <SelectBeerKegs beerStyles={ this.props.beerKegs } updateQuery={ this.updateQueryBeerKegs }/>
       </div>
     );
   }
@@ -22,5 +30,6 @@ class SearchContainer extends Component {
 export default SearchContainer
 
 SearchContainer.propTypes = {
-  beerStyles: PropTypes.array.isRequired
+  beerStyles: PropTypes.array.isRequired,
+  beerKegs: PropTypes.array.isRequired
 }

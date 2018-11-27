@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import { getBeersApi } from'./actions/actions'
 import * as request from 'superagent'
-import BeerInfo from'./components/BeerInfo'
-import BreweryInfo from './components/BreweryInfo';
+// import BeerInfo from'./components/BeerInfo'
+// import BreweryInfo from './components/BreweryInfo';
 import SearchContainer from './components/SearchContainer';
 
 class App extends Component {
@@ -48,7 +47,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.beerStyles && <SearchContainer beerStyles={ this.state.beerStyles}/>}
+        {this.state.beerStyles && this.state.beerKegs && <SearchContainer beerStyles={ this.state.beerStyles} beerKegs={ this.state.beerKegs}/>}
 
         {/* { this.state.beers && this.state.breweries && <BeerInfo 
           alcohol={ this.state.beers[2].alcohol }
