@@ -11,16 +11,31 @@ class App extends Component {
     beerStyles: null,
     beers: null,
     breweries: null,
+    searchResults: null,
     selectedBeerKegs: null,
     selectedBeerStyles: null,
     userLocation: null
   }
 
+  updateSearchResults = () => {
+    const searchResults = this.state.breweries.filter(v => this.state.beers.filter(w => 
+      (
+        v.name === w.brewery && 
+        this.state.selectedBeerKegs.includes(w.keg) && 
+        this.state.selectedBeerStyles.includes(w.style)
+      )
+    ).length > 0)
+    this.setState({searchResults})
+  }
+
   updateSelectedBeerKegs = (v) => {
     this.setState({selectedBeerKegs: v})
+    this.state.breweries && this.state.beers && this.updateSearchResults()
   }
+
   updateSelectedBeerStyles = (v) => {
     this.setState({selectedBeerStyles: v})
+    this.state.breweries && this.state.beers && this.updateSearchResults()
   }
 
   getBeers = () => {
@@ -81,6 +96,7 @@ class App extends Component {
           zipcode={ this.state.breweries[2].zipcode }
         /> } */}
 
+        <button onClick={ this.updateSearchResults } />
       </div>
     );
   }

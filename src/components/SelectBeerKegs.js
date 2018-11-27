@@ -31,7 +31,7 @@ class SelectBeerKegs extends Component {
 
 SelectBeerKegs.propTypes = {
   beerStyles: PropTypes.array.isRequired,
-  updatupdateSelectedBeerKegseQuery: PropTypes.func.isRequired
+  updateSelectedBeerKegs: PropTypes.func.isRequired
 }
 
 export default SelectBeerKegs
