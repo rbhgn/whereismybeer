@@ -1,6 +1,6 @@
 import * as request from 'superagent'
 
-export const getBeers = () => {
+export const getBeersApi = () => {
   console.log('beers')
   request
   .get(`https://downloads.oberon.nl/opdracht/bieren.js`)

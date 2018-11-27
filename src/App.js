@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
+import { getBeersApi } from'./actions/actions'
 import * as request from 'superagent'
 
 class App extends Component {
   state = {
     beers: null,
-    breweries: null
+    breweries: null,
+    userLocation: null
   }
 
   getBeers = () => {
@@ -22,9 +24,19 @@ class App extends Component {
     .catch(err => console.error(err))
   }
 
+  setLocation = (lat, lon) => {
+    this.setState({userLocation: {lat, lon} })
+  }
+  
+  getCurrentLocation = () => {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(pos => this.setLocation(pos.coords.latitude, pos.coords.longitude) )
+    }
+}
   componentDidMount() {
     this.getBeers()
     this.getBreweries()
+    this.getCurrentLocation()
   }
   render() {
     return (
