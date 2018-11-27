@@ -4,6 +4,7 @@ import { getBeersApi } from'./actions/actions'
 import * as request from 'superagent'
 import BeerInfo from'./components/BeerInfo'
 import BreweryInfo from './components/BreweryInfo';
+import SearchContainer from './components/SearchContainer';
 
 class App extends Component {
   state = {
@@ -47,8 +48,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        {this.state.beerStyles && <SearchContainer beerStyles={ this.state.beerStyles}/>}
 
-        { this.state.beers && this.state.breweries && <BeerInfo 
+        {/* { this.state.beers && this.state.breweries && <BeerInfo 
           alcohol={ this.state.beers[2].alcohol }
           brewery={ this.state.breweries.find(e => e.name === this.state.beers[2].brewery) }
           keg={ this.state.beers[2].keg }
@@ -64,7 +66,7 @@ class App extends Component {
           name={ this.state.breweries[2].name }
           open={ this.state.breweries[2].open }
           zipcode={ this.state.breweries[2].zipcode }
-        /> }
+        /> } */}
 
       </div>
     );
