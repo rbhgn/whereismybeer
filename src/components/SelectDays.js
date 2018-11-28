@@ -16,8 +16,8 @@ class SelectDays extends Component {
     } else if (checked && !this.state.weekDays.includes(value)) {
       newState = [value, ...this.state.weekDays]
     }
-    newState && this.props.updateSelectedWeekDays(newState)
-    newState && this.setState({weekDays: newState})
+    this.props.updateSelectedWeekDays(newState)
+    this.setState({weekDays: newState})
   }
 
   componentDidMount() {

@@ -15,8 +15,8 @@ class SelectBeerStyles extends Component {
     } else if (checked && !this.state.selectedBeerStyles.includes(value)) {
       newState = [value, ...this.state.selectedBeerStyles]
     }
-    newState && this.props.updateSelectedBeerStyles(newState)
-    newState && this.setState({selectedBeerStyles: newState})
+    this.props.updateSelectedBeerStyles(newState)
+    this.setState({selectedBeerStyles: newState})
   }
 
   componentDidMount() {

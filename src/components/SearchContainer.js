@@ -3,12 +3,14 @@ import PropTypes from 'prop-types'
 import SelectBeerStyles from './SelectBeerStyles'
 import SelectBeerKegs from './SelectBeerKegs'
 import SelectDays from './SelectDays'
+import GeoLocateButton from './GeoLocateButton';
 
 class SearchContainer extends Component {
   state = {
     beerStyles: [],
     beerKegs: [],
-    weekDays: []
+    weekDays: [],
+    position: null
   }
 
   style = {
@@ -16,6 +18,7 @@ class SearchContainer extends Component {
     minWidth: '200px',
     fontSize: '10px'
   }
+
 
   updateSelectedBeerStyles = (v) => {
     this.setState({beerStyles: v})
@@ -35,6 +38,11 @@ class SearchContainer extends Component {
     this.props.updateQuery(newState)
   }
 
+  updatePosition = (lat, lon) => {
+    console.log(lat, lon)
+    this.setState({position: {lat,lon}})
+    this.props.updateQuery({...this.state, position:{lat, lon}})
+  }
   componentDidMount() {
     const state = {
       beerStyles: this.props.beerStyles,
@@ -48,6 +56,7 @@ class SearchContainer extends Component {
   render() {
     return (
       <div style={ this.style }>
+        { <GeoLocateButton updatePosition={ this.updatePosition }/> }
 
         <h2>Styles</h2>
         <SelectBeerStyles 
