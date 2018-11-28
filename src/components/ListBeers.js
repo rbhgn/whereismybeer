@@ -1,25 +1,26 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import BreweryInfo from './BreweryInfo'
+import BeerInfo from './BeerInfo';
 
 class ListBeers extends Component {
 
   render() {
     return (
-        this.props.selectedBreweries.map((v,i) => (
-          <BreweryInfo 
-            address={ v.address }
-            city={ v.city }
-            name={ v.name }
-            open={ v.open }
-            zipcode={ v.zipcode }
-            key={ i }
-            index={ i }
-            selectBrewery={ this.props.selectBrewery }
-          />
-          ))
+      <div>
+      {this.props.beers.map((v,i) => (
+        <BeerInfo 
+        alcohol={v.alcohol}
+        brewery={v.brewery}
+        keg={v.keg}
+        name={v.name}
+        style={v.style}
+        volume={v.volume}
+        key={ i }
+        />
+        ))}
+      </div>
     )
-  
+    
     
   }
 }
@@ -27,6 +28,5 @@ class ListBeers extends Component {
 export default ListBeers
 
 ListBeers.propTypes = {
-  selectedBreweries: PropTypes.array.isRequired,
-  selectBrewery: PropTypes.func.isRequired
+  beers: PropTypes.array.isRequired
 }

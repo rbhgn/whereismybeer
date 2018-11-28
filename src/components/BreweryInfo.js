@@ -3,13 +3,9 @@ import PropTypes from 'prop-types';
 // import BeerInfo from './BeerInfo'
 class BreweryInfo extends Component {
 
-  selectBrewery = (i) => (e) => {
-    this.props.selectBrewery(i)
-  }
-
   render() {
     return (
-      <div style={ styles.breweryInfoContainer } onClick={ this.selectBrewery(this.props.index) } >
+      <div style={ styles.breweryInfoContainer } onClick={ this.props.selectBrewery(this.props.index) } >
         <div style={ styles.breweryInfoName }>
           { this.props.name.toUpperCase() }
         </div>

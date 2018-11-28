@@ -4,8 +4,10 @@ import BreweryInfo from './BreweryInfo'
 
 class ListBreweries extends Component {
   state = {selectBrewery: null}
-  selectBrewery = (i) => {
-    this.setState({selectBrewery: this.props.selectedBreweries[i]})
+  
+  selectBrewery = (i) => (e) => {
+    this.props.updateCurrentBrewery(this.props.selectedBreweries[i])
+  
   }
   render() {
     return (
@@ -29,5 +31,5 @@ export default ListBreweries
 
 ListBreweries.propTypes = {
   selectedBreweries: PropTypes.array.isRequired,
-  selectBrewery: PropTypes.func.isRequired
+  updateCurrentBrewery: PropTypes.func.isRequired
 }

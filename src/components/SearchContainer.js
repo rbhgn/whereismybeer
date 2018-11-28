@@ -20,21 +20,20 @@ class SearchContainer extends Component {
   updateSelectedBeerStyles = (v) => {
     this.setState({beerStyles: v})
     const newState = {...this.state, beerStyles: v}
-    this.props.setQuery(newState)
+    this.props.updateQuery(newState)
   }
 
   updateSelectedBeerKegs = (v) => {
     this.setState({beerKegs: v})
     const newState = {...this.state, beerKegs: v}
-    this.props.setQuery(newState)
+    this.props.updateQuery(newState)
   }
 
   updateSelectedWeekDays = (v) => {
     this.setState({weekDays: v})
     const newState = {...this.state, weekDays: v}
-    this.props.setQuery(newState)
+    this.props.updateQuery(newState)
   }
-
 
   componentDidMount() {
     const state = {
@@ -43,9 +42,9 @@ class SearchContainer extends Component {
       weekDays: this.props.weekDays
     }
     this.setState(state)
-    this.props.setQuery(state)
+    this.props.updateQuery(state)
   }
-  
+
   render() {
     return (
       <div style={ this.style }>
@@ -77,7 +76,7 @@ SearchContainer.propTypes = {
   beerStyles: PropTypes.array.isRequired,
   beerKegs: PropTypes.array.isRequired,
   weekDays: PropTypes.array.isRequired,
-  setQuery: PropTypes.func.isRequired
+  updateQuery: PropTypes.func.isRequired
 }
 
 export default SearchContainer
