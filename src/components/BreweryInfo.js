@@ -7,7 +7,7 @@ class BreweryInfo extends Component {
     return (
       <div style={ styles.breweryInfoContainer } onClick={ this.props.selectBrewery(this.props.index) } >
         <div style={ styles.breweryInfoName }>
-          { this.props.name.toUpperCase() }
+          { this.props.name.toUpperCase() } { this.props.selected && '*' }
         </div>
         <div style={ styles.breweryInfoAddress }>
           { this.props.address }, { this.props.zipcode }, { this.props.city }
@@ -23,7 +23,8 @@ BreweryInfo.propTypes = {
   city:     PropTypes.string.isRequired,
   name:     PropTypes.string.isRequired,
   open:     PropTypes.array.isRequired,
-  zipcode:  PropTypes.string.isRequired
+  zipcode:  PropTypes.string.isRequired,
+  selected: PropTypes.bool.isRequired
 }
 
 const styles = ({

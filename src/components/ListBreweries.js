@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import BreweryInfo from './BreweryInfo'
 
 class ListBreweries extends Component {
-  state = {selectBrewery: null}
   
   selectBrewery = (i) => (e) => {
-    this.props.updateCurrentBrewery(this.props.selectedBreweries[i])
-  
+    const selectedBrewery = this.props.selectedBreweries[i]
+    this.props.updateCurrentBrewery(selectedBrewery)
   }
+
   render() {
     return (
         this.props.selectedBreweries.map((v,i) => (
@@ -21,6 +21,7 @@ class ListBreweries extends Component {
             key={ i }
             index={ i }
             selectBrewery={ this.selectBrewery }
+            selected={ this.props.currentBrewery && this.props.currentBrewery.name === v.name ? true : false }
           />
           ))
     )  
@@ -31,5 +32,6 @@ export default ListBreweries
 
 ListBreweries.propTypes = {
   selectedBreweries: PropTypes.array.isRequired,
-  updateCurrentBrewery: PropTypes.func.isRequired
+  updateCurrentBrewery: PropTypes.func.isRequired,
+  currentBrewery: PropTypes.object
 }

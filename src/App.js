@@ -38,7 +38,9 @@ class App extends Component {
         v.beers = beers.filter(w => w.brewery === v.name)
         return v
         })
-    this.setState({searchResults: breweries})
+
+    const currentBrewery = this.state.currentBrewery && breweries.some(v => v.name === this.state.currentBrewery.name) ?this.state.currentBrewery : breweries[0]
+    this.setState({searchResults: breweries, currentBrewery})
   }
   updateQuery = (query) => {
     this.setState({query})
@@ -63,13 +65,11 @@ class App extends Component {
     request
     .get(`https://downloads.oberon.nl/opdracht/brouwerijen.js`)
     .then(result => {
-      console.log(JSON.parse(result.text).breweries)
       const breweries = JSON.parse(result.text).breweries.map(v => {
         v.country = v.city.indexOf(',') === -1 ? 'nl' : 'be'
         v.city = v.city.indexOf(',') === -1 ? v.city : v.city.substring(0, v.city.indexOf(','))
         return v
       })
-      console.log(breweries)
       this.setState({breweries, searchResults: breweries})
     })
     .catch(err => console.error(err))
@@ -100,6 +100,7 @@ class App extends Component {
           { this.searchResultsReady() && <ListBreweries 
             selectedBreweries={ this.state.searchResults } 
             updateCurrentBrewery={ this.updateCurrentBrewery }
+            currentBrewery={ this.state.currentBrewery }
           /> }
         </div>
         <div>
