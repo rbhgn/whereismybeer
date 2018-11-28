@@ -7,6 +7,7 @@ import { getWeekdays, getDistance } from './functions'
 import ListBeers from './components/ListBeers';
 import { API_KEY } from './constants'
 import GoogleMap from './components/GoogleMap';
+import TopBar from './components/TopBar';
 
 class App extends Component {
 
@@ -122,7 +123,8 @@ class App extends Component {
   render() {
     return (
       <div style={ styles.container }>
-        <div style={ styles.wrapper }>
+        <TopBar />
+        <div style={ styles.wrapperSide }>
           { this.searchContainerReady() && <SearchContainer 
             beerStyles={ this.state.beerStyles} 
             beerKegs={ this.state.beerKegs} 
@@ -133,14 +135,14 @@ class App extends Component {
             currentLocation={ this.state.currentLocation }
           />}
         </div>
-        <div style={ styles.wrapper }>
+        <div style={ styles.wrapperMiddle }>
           { this.searchResultsReady() && <ListBreweries 
             selectedBreweries={ this.state.searchResults } 
             updateCurrentBrewery={ this.updateCurrentBrewery }
             currentBrewery={ this.state.currentBrewery }
           /> }
         </div>
-        <div style={ styles.wrapper }>
+        <div style={ styles.wrapperSide }>
           { this.state.query && this.state.currentBrewery && this.searchResultsReady && <GoogleMap 
             userLocation={ this.state.query.position } 
             breweryLocation={ this.state.currentBrewery.coords }
@@ -168,9 +170,16 @@ const styles = ({
     justifyContent: 'space-evenly',
     background: 'linear-gradient(135deg, #d2c200 0%,#b55c00 100%)',
   },
-  wrapper: {
-    width: '30%',
-    minWidth: '380px',
-    margin: '10px'
+  wrapperSide: {
+    width: '25%',
+    margin: '10px',
+    paddingTop: '40px',
+    overflow: 'hidden'
+  },
+  wrapperMiddle: {
+    width: '40%',
+    margin: '10px',
+    paddingTop: '40px',
+    overflow: 'hidden'
   }
 })

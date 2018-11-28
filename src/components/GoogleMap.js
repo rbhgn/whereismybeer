@@ -41,11 +41,14 @@ export class MapContainer extends Component {
 <div 
   style={{ height: 350, 
     width: '100%', 
+    height: '250px',
     display: 'flex', 
     flexFlow: 'row nowrap', 
     justifyContent: 'center',
     position: 'relative', 
-    padding: 0,borderRadius: '10px',overflow: 'hidden',boxShadow: '0px 0px 25px 1px #d2c200'
+    padding: 0,borderRadius: '10px',
+    overflow: 'hidden',
+    boxShadow: '0px 0px 25px 1px #d2c200'
   }}
 > 
 
