@@ -3,7 +3,7 @@ import './App.css';
 import * as request from 'superagent'
 import SearchContainer from './components/SearchContainer'
 import ListBreweries from './components/ListBreweries'
-import { getWeekdays } from './functions'
+import { getWeekdays, getDistance } from './functions'
 import ListBeers from './components/ListBeers';
 import { API_KEY } from './constants'
 
@@ -16,12 +16,11 @@ class App extends Component {
     breweries: null,
     currentBrewery: null,
     searchResults: null,
-    weekDays: null,
-    loading:false
+    weekDays: null
   }
 
   searchContainerReady = () => {
-    return this.state.beerKegs && this.state.beerStyles && this.state.weekDays && this.state.breweries && this.state.beers && this.state.loading
+    return this.state.beerKegs && this.state.beerStyles && this.state.weekDays && this.state.breweries && this.state.beers
   }
 
   searchResultsReady = () => {
@@ -37,9 +36,10 @@ class App extends Component {
       .filter(brewery => beers.some(beer => beer.brewery === brewery.name))
       .map(v => {
         v.beers = beers.filter(w => w.brewery === v.name)
+        v.distance = v.coords && query.position ? getDistance(v.coords, query.position) : 0
         return v
         })
-
+        .sort((a, b) => a.distance - b.distance)
     const currentBrewery = this.state.currentBrewery && breweries.some(v => v.name === this.state.currentBrewery.name) ?this.state.currentBrewery : breweries[0]
     this.setState({searchResults: breweries, currentBrewery})
   }
@@ -89,10 +89,8 @@ class App extends Component {
     for (const brewery of this.state.breweries) {
       results.push(await this.getCoords(brewery.searchStr))
     }
-    console.log(results)
   }
   getCoords = (searchStr) => {
-    console.log(process.env.GOOGLE_MAPS_API_KEY)
     return request
       .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchStr}&key=${API_KEY}`)
       .then(res => JSON.parse(res.text).results[0].geometry.location)
