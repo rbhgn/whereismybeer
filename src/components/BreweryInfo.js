@@ -38,9 +38,11 @@ const styles = ({
     cursor: 'pointer'
   },
   breweryInfoName: {
+    fontFamily: 'Montserrat, sans-serif',
     fontSize: '20px'
   },
   breweryInfoAddress: {
+    fontFamily: 'Montserrat, sans-serif',
     fontSize: '10px'
   }
 })

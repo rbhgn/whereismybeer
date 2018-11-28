@@ -5,6 +5,19 @@ class BeerInfo extends Component {
   styles = {
     container: {
       width: '100%'
+    },
+    header: {
+      fontFamily: 'Montserrat, sans-serif',
+      fontSize: '20px'
+    },
+    info: {
+      fontFamily: 'Montserrat, sans-serif',
+      fontSize: '10px' 
+    },
+    infoContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-evenly'
     }
   }
   render() {
@@ -13,10 +26,16 @@ class BeerInfo extends Component {
         <div style={ this.styles.header }>
           { this.props.name.toUpperCase() }
         </div>
-        <p>Keg: { this.props.keg }</p>
-        <p>style: { this.props.style }</p>
-        <p>Volume:{ this.props.volume }</p>
-        <p>Alcohol: { this.props.alcohol } %</p>
+        <div style={ this.styles.infoContainer}>
+          {/* <div> */}
+            <p style={ this.styles.info }>Keg: { this.props.keg }</p>
+            <p style={ this.styles.info }>Style: { this.props.style }</p>
+          {/* </div>
+          <div> */}
+            <p style={ this.styles.info }>Volume: { this.props.volume }ml</p>
+            <p style={ this.styles.info }>Alcohol: { this.props.alcohol }%</p>
+          {/* </div> */}
+        </div>
       </div>
     );
   }

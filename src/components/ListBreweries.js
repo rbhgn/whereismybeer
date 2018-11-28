@@ -5,7 +5,13 @@ import BreweryInfo from './BreweryInfo'
 class ListBreweries extends Component {
   styles = {
     container: {
-      background: '#ffffff'
+      background: '#ffffff',
+      padding: '10px'
+    },
+    header: {
+      fontFamily: 'Raleway, sans-serif',
+      fontSize: '22px',
+      textAlign: 'center'
     }
   }
   selectBrewery = (i) => (e) => {
@@ -16,7 +22,7 @@ class ListBreweries extends Component {
   render() {
     return (
         <div style={ this.styles.container }>
-        <h1>Breweries</h1>
+        <h1 style={ this.styles.header }> - Breweries - </h1>
         { this.props.selectedBreweries.map((v,i) => (
           <BreweryInfo 
             address={ v.address }

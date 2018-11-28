@@ -14,17 +14,28 @@ class SearchContainer extends Component {
     position: null
   }
 
-  style = {
+  styles = {
     location: {
-    width: '100%',
-    background: '#ffffff'
+      width: 'calc(100% - 20px)',
+      background: '#ffffff',
+      padding: '10px'
     },
     filters: {
-      width: '100%',
-      background: '#ffffff' 
+      width: 'calc(100% - 20px)',
+      background: '#ffffff',
+      padding: '10px'
+    },
+    header: {
+      fontFamily: 'Raleway, sans-serif',
+      fontSize: '16px'
+    },
+    title: {
+      fontFamily: 'Raleway, sans-serif',
+      fontSize: '22px',
+      textAlign: 'center'
     }
-
   }
+ 
 
   updateSelectedBeerStyles = (v) => {
     this.setState({beerStyles: v})
@@ -61,29 +72,30 @@ class SearchContainer extends Component {
   }
 
   render() {
+  
     return (
       <div>
-        <div style={ this.style.location }>
-          <h1>Location</h1>
+        <div style={ this.styles.location }>
+          <h1 style={ this.styles.title }> - Location - </h1>
           <p>{ this.props.currentLocation }</p>
           { <GeoLocateButton updatePosition={ this.updatePosition }/> }
           { <LocationInput getCoords={ this.props.getCoords } updatePosition={ this.updatePosition } />}
         </div>
-        <div style={ this.style.filters }>
-          <h1>Filter</h1>
-          <h2>Styles</h2>
+        <div style={ this.styles.filters }>
+          <h1 style={ this.styles.title }> - Filter - </h1>
+          <h2 style={ this.styles.header }>Styles</h2>
           <SelectBeerStyles 
             beerStyles={ this.props.beerStyles } 
             updateSelectedBeerStyles={ this.updateSelectedBeerStyles }
           />
 
-          <h2>Kegs</h2>
+          <h2 style={ this.styles.header }>Kegs</h2>
           <SelectBeerKegs 
             beerKegs={ this.props.beerKegs } 
             updateSelectedBeerKegs={ this.updateSelectedBeerKegs }
           />
 
-          <h2>Open</h2>
+          <h2 style={ this.styles.header }>Open</h2>
           <SelectDays 
             weekDays={ this.props.weekDays } 
             updateSelectedWeekDays={ this.updateSelectedWeekDays }

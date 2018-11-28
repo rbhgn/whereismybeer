@@ -5,14 +5,20 @@ import BeerInfo from './BeerInfo';
 class ListBeers extends Component {
   styles = {
     container: {
-      background: '#ffffff'
+      background: '#ffffff',
+      padding: '10px'
+    },
+    title: {
+      fontFamily: 'Raleway, sans-serif',
+      fontSize: '22px',
+      textAlign: 'center'
     }
   }
 
   render() {
     return (
       <div style={ this.styles.container }>
-        <h1>Beers</h1>
+        <h1 style={ this.styles.title }>- Beers -</h1>
         {this.props.beers.map((v,i) => (
           <BeerInfo 
           alcohol={v.alcohol}
