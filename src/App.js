@@ -6,6 +6,7 @@ import ListBreweries from './components/ListBreweries'
 import { getWeekdays, getDistance } from './functions'
 import ListBeers from './components/ListBeers';
 import { API_KEY } from './constants'
+import GoogleMap from './components/GoogleMap';
 
 class App extends Component {
 
@@ -48,7 +49,7 @@ class App extends Component {
   updateQuery = async (query) => {
     if (this.state.query && JSON.stringify(this.state.query.position) !== JSON.stringify(query.position)) {
       console.log(query)
-      const getLocation = await this.getAddress(`${query.position.lat},${query.position.lon}`)
+      const getLocation = await this.getAddress(`${query.position.lat},${query.position.lng}`)
       const currentLocation = getLocation ? getLocation.formatted_address : 'No location found'
       this.setState({currentLocation})
     }
@@ -81,7 +82,7 @@ class App extends Component {
         v.country = v.city.indexOf(',') === -1 ? 'nl' : 'be'
         v.city = v.city.indexOf(',') === -1 ? v.city : v.city.substring(0, v.city.indexOf(','))
         v.searchStr = `${v.address},${v.zipcode},${v.city},${v.country}`
-        // v.coords = await this.getCoords(v.searchStr)
+        v.coords = await this.getCoords(v.searchStr)
         return v
       }))
     ))
@@ -129,6 +130,7 @@ class App extends Component {
             updateQuery={ this.updateQuery }
             getCoords={ this.getCoords }
             getAddress={ this.getAddress }
+            currentLocation={ this.state.currentLocation }
           />}
         </div>
         <div>
@@ -142,7 +144,12 @@ class App extends Component {
            { this.state.currentBrewery && <ListBeers 
             beers={ this.state.currentBrewery.beers } 
           /> }
+          { this.state.query && this.state.currentBrewery.coords && this.searchResultsReady && <GoogleMap 
+            userLocation={ this.state.query.position } 
+            breweryLocation={ this.state.currentBrewery.coords }/> 
+          }
         </div>
+        
       </div>
     );
   }
@@ -157,11 +164,5 @@ const styles = ({
     margin: '0',
     padding: '0',
     display: 'flex'
-  },
-  breweryInfoName: {
-    fontSize: '20px'
-  },
-  breweryInfoAddress: {
-    fontSize: '10px'
   }
 })

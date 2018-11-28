@@ -18,6 +18,6 @@ export const getDistance = (coords1, coords2) => {
   var c = Math.cos;
   var a = 0.5 - c((coords2.lat - coords1.lat) * p)/2 + 
           c(coords1.lat * p) * c(coords2.lat * p) * 
-          (1 - c((coords2.lon - coords1.lng) * p))/2
+          (1 - c((coords2.lng - coords1.lng) * p))/2
   return 12742 * Math.asin(Math.sqrt(a))
 }

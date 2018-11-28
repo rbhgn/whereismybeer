@@ -40,8 +40,8 @@ class SearchContainer extends Component {
 
   updatePosition = (lat, lon) => {
     console.log(lat, lon)
-    this.setState({position: {lat,lon}})
-    this.props.updateQuery({...this.state, position:{lat, lon}})
+    this.setState({position: {lat,lng: lon}})
+    this.props.updateQuery({...this.state, position:{lat, lng: lon}})
   }
 
   componentDidMount() {
@@ -58,6 +58,7 @@ class SearchContainer extends Component {
   render() {
     return (
       <div style={ this.style }>
+        <p>{ this.props.currentLocation }</p>
         { <GeoLocateButton updatePosition={ this.updatePosition }/> }
         { <LocationInput getCoords={ this.props.getCoords } updatePosition={ this.updatePosition } />}
 
