@@ -16,7 +16,8 @@ class App extends Component {
     breweries: null,
     currentBrewery: null,
     searchResults: null,
-    weekDays: null
+    weekDays: null,
+    currentLocation: 'No location found'
   }
 
   searchContainerReady = () => {
@@ -43,7 +44,14 @@ class App extends Component {
     const currentBrewery = this.state.currentBrewery && breweries.some(v => v.name === this.state.currentBrewery.name) ?this.state.currentBrewery : breweries[0]
     this.setState({searchResults: breweries, currentBrewery})
   }
-  updateQuery = (query) => {
+
+  updateQuery = async (query) => {
+    if (this.state.query && JSON.stringify(this.state.query.position) !== JSON.stringify(query.position)) {
+      console.log(query)
+      const getLocation = await this.getAddress(`${query.position.lat},${query.position.lon}`)
+      const currentLocation = getLocation ? getLocation.formatted_address : 'No location found'
+      this.setState({currentLocation})
+    }
     this.setState({query})
     this.updateSearchResults(query)
   }
@@ -73,7 +81,7 @@ class App extends Component {
         v.country = v.city.indexOf(',') === -1 ? 'nl' : 'be'
         v.city = v.city.indexOf(',') === -1 ? v.city : v.city.substring(0, v.city.indexOf(','))
         v.searchStr = `${v.address},${v.zipcode},${v.city},${v.country}`
-        v.coords = await this.getCoords(v.searchStr)
+        // v.coords = await this.getCoords(v.searchStr)
         return v
       }))
     ))
@@ -97,6 +105,13 @@ class App extends Component {
       .catch(err => console.error(err))
   }
 
+  getAddress = (searchStr) => {
+    return request
+      .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${searchStr}&key=${API_KEY}`)
+      .then(res => JSON.parse(res.text).results[0])
+      .catch(err => console.error(err))
+  }
+
   componentDidMount() {
     this.getBeers()
     this.getBreweries()
@@ -112,6 +127,8 @@ class App extends Component {
             beerKegs={ this.state.beerKegs} 
             weekDays={ this.state.weekDays }
             updateQuery={ this.updateQuery }
+            getCoords={ this.getCoords }
+            getAddress={ this.getAddress }
           />}
         </div>
         <div>

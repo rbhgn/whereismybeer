@@ -4,6 +4,7 @@ import SelectBeerStyles from './SelectBeerStyles'
 import SelectBeerKegs from './SelectBeerKegs'
 import SelectDays from './SelectDays'
 import GeoLocateButton from './GeoLocateButton';
+import LocationInput from './LocationInput';
 
 class SearchContainer extends Component {
   state = {
@@ -58,6 +59,7 @@ class SearchContainer extends Component {
     return (
       <div style={ this.style }>
         { <GeoLocateButton updatePosition={ this.updatePosition }/> }
+        { <LocationInput getCoords={ this.props.getCoords } updatePosition={ this.updatePosition } />}
 
         <h2>Styles</h2>
         <SelectBeerStyles 
