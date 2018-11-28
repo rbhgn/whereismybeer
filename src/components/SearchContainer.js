@@ -15,9 +15,15 @@ class SearchContainer extends Component {
   }
 
   style = {
-    padding: '10px',
-    minWidth: '200px',
-    fontSize: '10px'
+    location: {
+    width: '100%',
+    background: '#ffffff'
+    },
+    filters: {
+      width: '100%',
+      background: '#ffffff' 
+    }
+
   }
 
   updateSelectedBeerStyles = (v) => {
@@ -39,7 +45,6 @@ class SearchContainer extends Component {
   }
 
   updatePosition = (lat, lon) => {
-    console.log(lat, lon)
     this.setState({position: {lat,lng: lon}})
     this.props.updateQuery({...this.state, position:{lat, lng: lon}})
   }
@@ -57,28 +62,31 @@ class SearchContainer extends Component {
 
   render() {
     return (
-      <div style={ this.style }>
-        <p>{ this.props.currentLocation }</p>
-        { <GeoLocateButton updatePosition={ this.updatePosition }/> }
-        { <LocationInput getCoords={ this.props.getCoords } updatePosition={ this.updatePosition } />}
+      <div>
+        <div style={ this.style.location }>
+          <p>{ this.props.currentLocation }</p>
+          { <GeoLocateButton updatePosition={ this.updatePosition }/> }
+          { <LocationInput getCoords={ this.props.getCoords } updatePosition={ this.updatePosition } />}
+        </div>
+        <div style={ this.style.filters }>
+          <h2>Styles</h2>
+          <SelectBeerStyles 
+            beerStyles={ this.props.beerStyles } 
+            updateSelectedBeerStyles={ this.updateSelectedBeerStyles }
+          />
 
-        <h2>Styles</h2>
-        <SelectBeerStyles 
-          beerStyles={ this.props.beerStyles } 
-          updateSelectedBeerStyles={ this.updateSelectedBeerStyles }
-        />
+          <h2>Kegs</h2>
+          <SelectBeerKegs 
+            beerKegs={ this.props.beerKegs } 
+            updateSelectedBeerKegs={ this.updateSelectedBeerKegs }
+          />
 
-        <h2>Kegs</h2>
-        <SelectBeerKegs 
-          beerKegs={ this.props.beerKegs } 
-          updateSelectedBeerKegs={ this.updateSelectedBeerKegs }
-        />
-
-        <h2>Open</h2>
-        <SelectDays 
-          weekDays={ this.props.weekDays } 
-          updateSelectedWeekDays={ this.updateSelectedWeekDays }
-        />
+          <h2>Open</h2>
+          <SelectDays 
+            weekDays={ this.props.weekDays } 
+            updateSelectedWeekDays={ this.updateSelectedWeekDays }
+          />
+          </div>
 
       </div>
     );

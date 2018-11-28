@@ -82,7 +82,7 @@ class App extends Component {
         v.country = v.city.indexOf(',') === -1 ? 'nl' : 'be'
         v.city = v.city.indexOf(',') === -1 ? v.city : v.city.substring(0, v.city.indexOf(','))
         v.searchStr = `${v.address},${v.zipcode},${v.city},${v.country}`
-        v.coords = await this.getCoords(v.searchStr)
+        // v.coords = await this.getCoords(v.searchStr)
         return v
       }))
     ))
@@ -122,7 +122,7 @@ class App extends Component {
   render() {
     return (
       <div style={ styles.container }>
-        <div>
+        <div style={ styles.wrapper }>
           { this.searchContainerReady() && <SearchContainer 
             beerStyles={ this.state.beerStyles} 
             beerKegs={ this.state.beerKegs} 
@@ -133,18 +133,18 @@ class App extends Component {
             currentLocation={ this.state.currentLocation }
           />}
         </div>
-        <div>
+        <div style={ styles.wrapper }>
           { this.searchResultsReady() && <ListBreweries 
             selectedBreweries={ this.state.searchResults } 
             updateCurrentBrewery={ this.updateCurrentBrewery }
             currentBrewery={ this.state.currentBrewery }
           /> }
         </div>
-        <div>
+        <div style={ styles.wrapper }>
            { this.state.currentBrewery && <ListBeers 
             beers={ this.state.currentBrewery.beers } 
           /> }
-          { this.state.query && this.state.currentBrewery.coords && this.searchResultsReady && <GoogleMap 
+          { this.state.query && this.state.currentBrewery && this.searchResultsReady && <GoogleMap 
             userLocation={ this.state.query.position } 
             breweryLocation={ this.state.currentBrewery.coords }/> 
           }
@@ -163,6 +163,12 @@ const styles = ({
     minHeight: '100vh',
     margin: '0',
     padding: '0',
-    display: 'flex'
+    display: 'flex',
+    background: 'linear-gradient(135deg, #d2c200 0%,#b55c00 100%)'
+  },
+  wrapper: {
+    width: '30%',
+    minWidth: '380px',
+    margin: '10px'
   }
 })

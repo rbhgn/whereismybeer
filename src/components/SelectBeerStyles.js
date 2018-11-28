@@ -27,7 +27,7 @@ class SelectBeerStyles extends Component {
     return (
       <div style={ this.styles }>
         { this.props.beerStyles.map((v, i) => (
-          <CheckBox onChange={ this.handleChange } value={ v } key={ i }/>
+          <CheckBox onChange={ this.handleChange } value={ v } label={ v } key={ i }/>
         )) }
        </div> 
     )

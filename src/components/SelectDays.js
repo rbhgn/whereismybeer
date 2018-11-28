@@ -32,6 +32,7 @@ class SelectDays extends Component {
               value={ v }
               onChange={ this.handleChange }
               key={ i }
+              label={ i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : v }
             />
         )) }
       </div>

@@ -3,8 +3,9 @@ import { Map, GoogleApiWrapper, Marker} from 'google-maps-react';
 import { API_KEY } from '../constants'
 
 const mapStyles = {
-  width: '50vh',
-  height: '100%'
+  width: '100%',
+  height: '100%',
+  position: 'relative'
 };
 
 export class MapContainer extends Component {
@@ -21,8 +22,8 @@ export class MapContainer extends Component {
     bounds={ bounds }
     scrollwheel={ false }
   >
-    <Marker name={'MARKER1'} position={ this.props.breweryLocation }/>
-    <Marker name={'MARKER2'} position={ this.props.userLocation }/>
+    <Marker name={'Brewery'} position={ this.props.breweryLocation }/>
+    <Marker name={'User'} position={ this.props.userLocation }/>
   </Map>
     
     );

@@ -12,7 +12,7 @@ class CheckBox extends Component {
   render() {
     return (
         <label>
-          { this.props.value }
+          { this.props.label }
           <input type="checkbox" value={ this.props.value } onChange={ this.handleChange } checked= {this.state.checked}/>
         </label>
     )
@@ -23,5 +23,6 @@ export default CheckBox;
 
 CheckBox.propTypes = {
   value: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired
 }
