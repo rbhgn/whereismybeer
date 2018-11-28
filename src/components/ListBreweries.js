@@ -22,6 +22,7 @@ class ListBreweries extends Component {
             index={ i }
             selectBrewery={ this.selectBrewery }
             selected={ this.props.currentBrewery && this.props.currentBrewery.name === v.name ? true : false }
+            distance={ v.distance }
           />
           ))
     )  

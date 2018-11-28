@@ -13,7 +13,6 @@ export const getWeekdays = () => {
 }
 
 export const getDistance = (coords1, coords2) => {
-  console.log(coords1, coords2)
   if (!coords1 || !coords2) return 0
   var p = 0.017453292519943295;    // Math.PI / 180
   var c = Math.cos;

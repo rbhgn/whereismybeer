@@ -36,7 +36,7 @@ class App extends Component {
       .filter(brewery => beers.some(beer => beer.brewery === brewery.name))
       .map(v => {
         v.beers = beers.filter(w => w.brewery === v.name)
-        v.distance = v.coords && query.position ? getDistance(v.coords, query.position) : 0
+        v.distance = v.coords && query.position ? getDistance(v.coords, query.position) : "Cannot Find Beer"
         return v
         })
         .sort((a, b) => a.distance - b.distance)
