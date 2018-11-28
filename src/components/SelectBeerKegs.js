@@ -17,14 +17,14 @@ class SelectBeerKegs extends Component {
   }
 
   componentDidMount() {
-    this.setState({selectedBeerKegs: this.props.beerStyles})
-    this.props.updateSelectedBeerKegs(this.props.beerStyles)
+    this.setState({selectedBeerKegs: this.props.beerKegs})
+    this.props.updateSelectedBeerKegs(this.props.beerKegs)
   }
 
   render() {
     return (
       <div style={ this.styles }>
-      { this.props.beerStyles.map((v, i) => (
+      { this.props.beerKegs.map((v, i) => (
         <CheckBox onChange={ this.handleChange } value={ v } key={ i }/>
        )) }
       </div> 
@@ -33,7 +33,7 @@ class SelectBeerKegs extends Component {
 }
 
 SelectBeerKegs.propTypes = {
-  beerStyles: PropTypes.array.isRequired,
+  beerKegs: PropTypes.array.isRequired,
   updateSelectedBeerKegs: PropTypes.func.isRequired
 }
 

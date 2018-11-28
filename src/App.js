@@ -1,115 +1,95 @@
 import React, { Component } from 'react'
 import './App.css';
 import * as request from 'superagent'
-// import BeerInfo from'./components/BeerInfo'
-// import BreweryInfo from './components/BreweryInfo';
 import SearchContainer from './components/SearchContainer'
 import ListBreweries from './components/ListBreweries'
-import { getWeekdays } from './functions'
+import { getWeekdays, getCoords } from './functions'
 
 class App extends Component {
 
   state = {
     beerKegs: null,
     beerStyles: null,
-    beers: null,
-    breweries: null,
+    beers: [],
+    breweries: [],
     searchResults: null,
-    selectedBeerKegs: null,
-    selectedBeerStyles: null,
-    selectedBreweryIndex: null,
-    selectedWeekDays: null,
     userLocation: null,
-    weekDays: null
+    weekDays: []
   }
+
   setLocation = (lat, lon) => {
     this.setState({userLocation: {lat, lon} })
   }
-
-  updateSearchResults = (beerKegs, beerStyles, weekDays) => {
-    let searchResults
-      if (
-        beerKegs.length === this.state.beerKegs.length && 
-        beerStyles.length === this.state.beerStyles.length
-      ) {
-        searchResults = this.state.breweries
-      } else {
-        searchResults = this.state.breweries
-          .filter(v => this.state.beers
-            .some(w => 
-              (
-                v.name === w.brewery && 
-                beerKegs.includes(w.keg) && 
-                beerStyles.includes(w.style)
-              ) 
-            )
-          ).filter(x => x.open.some(y => weekDays.includes(y)))
-      }
-      this.selectBrewery(0)
-    this.setState({searchResults})
+  updateSearchResults = (query) => {
+    const beers = this.state.beers
+      .filter(beer => query.beerStyles.includes(beer.style))
+      .filter(beer => query.beerKegs.includes(beer.keg))
+    const breweries = this.state.breweries
+      .filter(brewery => brewery.open.some(day => query.weekDays.includes(day)))
+      .filter(brewery => beers.some(beer => beer.brewery === brewery.name))
+      .map(v => {
+        v.beers = beers.filter(w => w.brewery === v.name)
+        return v
+        })
+    this.setState({searchResults: breweries})
   }
-
-  selectBrewery = (i) => {
-    this.setState({selectedBreweryIndex: i})
+  setQuery = (query) => {
+    this.setState({query})
+    this.updateSearchResults(query)
   }
-  
-  updateSelectedBeerKegs = (v) => {
-    this.setState({selectedBeerKegs: v})
-
-    this.state.selectedBeerStyles && 
-      this.state.selectedWeekDays && 
-      this.updateSearchResults(v, this.state.selectedBeerStyles, this.state.selectedWeekDays)
-  }
-
-  updateSelectedBeerStyles = (v) => {
-    this.setState({selectedBeerStyles: v})
-
-    this.state.selectedBeerKegs && 
-      this.state.selectedWeekDays && 
-      this.updateSearchResults(this.state.selectedBeerKegs, v, this.state.selectedWeekDays)
-  }
-
-  updateSelectedWeekDays = (v) => {
-    this.setState({selectedWeekDays: v})
-
-    this.state.selectedBeerKegs && 
-      this.state.selectedBeerStyles && 
-      this.updateSearchResults(this.state.selectedBeerKegs, this.state.selectedBeerStyles, v)
-  }
-
   getBeers = () => {
     request
     .get(`https://downloads.oberon.nl/opdracht/bieren.js`)
-    .then(result  => this.setState({beers: JSON.parse(result.text).beers}))
-    .then(()      => this.setState({beerStyles: [...new Set(this.state.beers.map(e => e.style))]}))
-    .then(()      => this.setState({beerKegs: [...new Set(this.state.beers.map(e => e.keg))]}))
+    .then(result  => {
+      const beers = JSON.parse(result.text).beers
+      const beerStyles = [...new Set(beers.map(e => e.style))]
+      const beerKegs = [...new Set(beers.map(e => e.keg))]
+      this.setState({beers, beerStyles, beerKegs, searchResults:{beers}})
+    })
     .catch(err => console.error(err))
   }
-
   getBreweries = () => {
     request
     .get(`https://downloads.oberon.nl/opdracht/brouwerijen.js`)
-    .then(result => this.setState({breweries: JSON.parse(result.text).breweries }))
+    .then(result => {
+      const breweries = JSON.parse(result.text).breweries.map(v => {
+        v.country = v.city.indexOf(',') === -1 ? 'nl' : 'be'
+        v.city = v.city.indexOf(',') === -1 ? v.city : v.city.substring(0, v.city.indexOf(','))
+        return v
+      })
+      this.setState({breweries, searchResults: breweries})
+    })
     .catch(err => console.error(err))
   }
-
   getDays = () => {
-    const weekDays = getWeekdays(2)
-    this.setState({weekDays})
+    this.setState({weekDays: getWeekdays()})
   }
-
   getCurrentLocation = () => {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(pos => this.setLocation(pos.coords.latitude, pos.coords.longitude) )
     }
   }
 
+  getGeoLocation = (searchStr) => {
+    request
+    .get(`https://eu1.locationiq.com/v1/search.php?key=bf365b22732a9f&${searchStr}&format=json`)
+    .then(result => {
+      const rawData = JSON.parse(result.text)
+      const data = rawData.length > 0 ? { lat: rawData[0].lat, lon: rawData[0].lon } : null
+      console.log(data)
+      return data
+      })
+    .catch(err =>  null)
+  }
   componentDidMount() {
     this.getBeers()
     this.getBreweries()
     this.getDays()
     this.getCurrentLocation()
+    // getCoords(2593, 'CT', 134)
+    // this.getGeoLocation()
   }
+
   render() {
     return (
       <div style={ styles.container }>
@@ -121,6 +101,7 @@ class App extends Component {
             updateSelectedBeerKegs={ this.updateSelectedBeerKegs } 
             updateSelectedBeerStyles={ this.updateSelectedBeerStyles }
             updateSelectedWeekDays={ this.updateSelectedWeekDays }
+            setQuery={ this.setQuery }
           />}
         </div>
         {/* { this.state.beers && this.state.breweries && <BeerInfo 
@@ -141,10 +122,10 @@ class App extends Component {
           zipcode={ this.state.breweries[2].zipcode }
         /> } */}
         <div>
-          { this.state.searchResults && <ListBreweries 
+          {/* { this.state.searchResults && <ListBreweries 
             selectedBreweries={ this.state.searchResults } 
             selectBrewery={ this.selectBrewery }
-          /> }
+          /> } */}
         </div>
       </div>
     );
@@ -168,3 +149,6 @@ const styles = ({
     fontSize: '10px'
   }
 })
+
+//bf365b22732a9f
+
