@@ -82,7 +82,7 @@ class App extends Component {
         v.country = v.city.indexOf(',') === -1 ? 'nl' : 'be'
         v.city = v.city.indexOf(',') === -1 ? v.city : v.city.substring(0, v.city.indexOf(','))
         v.searchStr = `${v.address},${v.zipcode},${v.city},${v.country}`
-        // v.coords = await this.getCoords(v.searchStr)
+        v.coords = await this.getCoords(v.searchStr)
         return v
       }))
     ))
@@ -141,13 +141,14 @@ class App extends Component {
           /> }
         </div>
         <div style={ styles.wrapper }>
+          { this.state.query && this.state.currentBrewery && this.searchResultsReady && <GoogleMap 
+            userLocation={ this.state.query.position } 
+            breweryLocation={ this.state.currentBrewery.coords }
+          /> }
+
            { this.state.currentBrewery && <ListBeers 
             beers={ this.state.currentBrewery.beers } 
           /> }
-          { this.state.query && this.state.currentBrewery && this.searchResultsReady && <GoogleMap 
-            userLocation={ this.state.query.position } 
-            breweryLocation={ this.state.currentBrewery.coords }/> 
-          }
         </div>
         
       </div>
@@ -164,7 +165,7 @@ const styles = ({
     margin: '0',
     padding: '0',
     display: 'flex',
-    background: 'linear-gradient(135deg, #d2c200 0%,#b55c00 100%)'
+    background: 'linear-gradient(135deg, #d2c200 0%,#b55c00 100%)',
   },
   wrapper: {
     width: '30%',

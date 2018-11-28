@@ -64,11 +64,13 @@ class SearchContainer extends Component {
     return (
       <div>
         <div style={ this.style.location }>
+          <h1>Location</h1>
           <p>{ this.props.currentLocation }</p>
           { <GeoLocateButton updatePosition={ this.updatePosition }/> }
           { <LocationInput getCoords={ this.props.getCoords } updatePosition={ this.updatePosition } />}
         </div>
         <div style={ this.style.filters }>
+          <h1>Filter</h1>
           <h2>Styles</h2>
           <SelectBeerStyles 
             beerStyles={ this.props.beerStyles } 

@@ -3,7 +3,11 @@ import PropTypes from 'prop-types'
 import BreweryInfo from './BreweryInfo'
 
 class ListBreweries extends Component {
-  
+  styles = {
+    container: {
+      background: '#ffffff'
+    }
+  }
   selectBrewery = (i) => (e) => {
     const selectedBrewery = this.props.selectedBreweries[i]
     this.props.updateCurrentBrewery(selectedBrewery)
@@ -11,7 +15,9 @@ class ListBreweries extends Component {
 
   render() {
     return (
-        this.props.selectedBreweries.map((v,i) => (
+        <div style={ this.styles.container }>
+        <h1>Breweries</h1>
+        { this.props.selectedBreweries.map((v,i) => (
           <BreweryInfo 
             address={ v.address }
             city={ v.city }
@@ -24,7 +30,8 @@ class ListBreweries extends Component {
             selected={ this.props.currentBrewery && this.props.currentBrewery.name === v.name ? true : false }
             distance={ v.distance }
           />
-          ))
+          )) }
+          </div>
     )  
   }
 }

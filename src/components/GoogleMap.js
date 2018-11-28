@@ -9,23 +9,49 @@ const mapStyles = {
 };
 
 export class MapContainer extends Component {
+  getCenter = () => {
+    
+    const latCenter = (this.props.breweryLocation.lat + this.props.userLocation.lat) / 2
+    const lngCenter = (this.props.breweryLocation.lng + this.props.userLocation.lng) / 2
+    const result = {lat: latCenter, lng: lngCenter}
+    console.log(result)
+    return result
+  }
   render() {
     const bounds = new this.props.google.maps.LatLngBounds()
     this.props.breweryLocation && bounds.extend(this.props.breweryLocation)
     this.props.userLocation && bounds.extend(this.props.userLocation)
-    return (
 
+    const center = this.props.breweryLocation && this.props.userLocation ? this.getCenter() : this.props.breweryLocation
+
+    return (
+<div 
+  style={{ height: 350, 
+    width: '100%', 
+    display: 'flex', 
+    flexFlow: 'row nowrap', 
+    justifyContent: 'center',
+    position: 'relative', 
+    padding: 0 
+  }}
+>
   <Map google={this.props.google} 
-    initialCenter={ this.props.breweryLocation } 
-    center={ this.props.breweryLocation }
+    initialCenter={ center} 
+    center={ center }
     style={ mapStyles }
     bounds={ bounds }
     scrollwheel={ false }
+    zoomControl={ false }
+    mapTypeControl={ false }
+    scaleControl={ false }
+    streetViewControl={ false }
+    rotateControl={ false }
+    fullscreenControl={ false }
   >
     <Marker name={'Brewery'} position={ this.props.breweryLocation }/>
     <Marker name={'User'} position={ this.props.userLocation }/>
   </Map>
-    
+    </div>
     );
   }
 }
