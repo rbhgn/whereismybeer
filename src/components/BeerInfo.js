@@ -8,11 +8,13 @@ class BeerInfo extends Component {
     },
     header: {
       fontFamily: 'Montserrat, sans-serif',
-      fontSize: '20px'
+      fontSize: '20px',
+      color: '#333333'
     },
     info: {
       fontFamily: 'Montserrat, sans-serif',
-      fontSize: '10px' 
+      fontSize: '10px',
+      color: '#333333' 
     },
     infoContainer: {
       display: 'flex',

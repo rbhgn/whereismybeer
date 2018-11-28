@@ -6,19 +6,23 @@ class ListBeers extends Component {
   styles = {
     container: {
       background: '#ffffff',
-      padding: '10px'
+      padding: '10px',
+      borderRadius: '10px',
+      boxShadow: '0px 0px 25px 1px #d2c200'
     },
     title: {
       fontFamily: 'Raleway, sans-serif',
       fontSize: '22px',
-      textAlign: 'center'
+      textAlign: 'center',
+      color: '#ffffff'
     }
   }
 
   render() {
     return (
+      <div>
+      <h1 style={ this.styles.title }>- Beers -</h1>
       <div style={ this.styles.container }>
-        <h1 style={ this.styles.title }>- Beers -</h1>
         {this.props.beers.map((v,i) => (
           <BeerInfo 
           alcohol={v.alcohol}
@@ -30,6 +34,7 @@ class ListBeers extends Component {
           key={ i }
           />
           ))}
+      </div>
       </div>
     )
     

@@ -5,7 +5,13 @@ import { API_KEY } from '../constants'
 const mapStyles = {
   width: '100%',
   height: '100%',
-  position: 'relative'
+  position: 'relative',
+  title: {
+    fontFamily: 'Raleway, sans-serif',
+    fontSize: '22px',
+    textAlign: 'center',
+    color: '#ffffff'
+  }
 };
 
 export class MapContainer extends Component {
@@ -29,6 +35,9 @@ export class MapContainer extends Component {
     const bounds = this.props.breweryLocation && this.props.userLocation ?this.getBounds() : null
 
     return (
+      <div>
+        <h1 style={ mapStyles.title }> - Map - </h1>
+      
 <div 
   style={{ height: 350, 
     width: '100%', 
@@ -36,9 +45,10 @@ export class MapContainer extends Component {
     flexFlow: 'row nowrap', 
     justifyContent: 'center',
     position: 'relative', 
-    padding: 0 
+    padding: 0,borderRadius: '10px',overflow: 'hidden',boxShadow: '0px 0px 25px 1px #d2c200'
   }}
->
+> 
+
   <Map google={this.props.google} 
     initialCenter={ center} 
     zoom={ 12 }
@@ -56,7 +66,7 @@ export class MapContainer extends Component {
     <Marker name={'Brewery'} position={ this.props.breweryLocation }/>
     <Marker name={'User'} position={ this.props.userLocation }/>
   </Map>
-    </div>
+    </div></div>
     );
   }
 }

@@ -82,7 +82,7 @@ class App extends Component {
         v.country = v.city.indexOf(',') === -1 ? 'nl' : 'be'
         v.city = v.city.indexOf(',') === -1 ? v.city : v.city.substring(0, v.city.indexOf(','))
         v.searchStr = `${v.address},${v.zipcode},${v.city},${v.country}`
-        v.coords = await this.getCoords(v.searchStr)
+        // v.coords = await this.getCoords(v.searchStr)
         return v
       }))
     ))
@@ -165,6 +165,7 @@ const styles = ({
     margin: '0',
     padding: '0',
     display: 'flex',
+    justifyContent: 'space-evenly',
     background: 'linear-gradient(135deg, #d2c200 0%,#b55c00 100%)',
   },
   wrapper: {

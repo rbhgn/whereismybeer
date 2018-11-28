@@ -9,7 +9,8 @@ class CheckBox extends Component {
     container: {
       width: '100%',
       fontSize: '14px',
-      fontFamily: 'Montserrat, sans-serif'
+      fontFamily: 'Montserrat, sans-serif',
+      color: '#333333'
     }
   }
 

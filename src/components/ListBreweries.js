@@ -6,12 +6,15 @@ class ListBreweries extends Component {
   styles = {
     container: {
       background: '#ffffff',
-      padding: '10px'
+      padding: '10px',
+      borderRadius:'10px',
+      boxShadow: '0px 0px 25px 1px #d2c200'
     },
     header: {
       fontFamily: 'Raleway, sans-serif',
       fontSize: '22px',
-      textAlign: 'center'
+      textAlign: 'center',
+      color: '#ffffff'
     }
   }
   selectBrewery = (i) => (e) => {
@@ -21,8 +24,9 @@ class ListBreweries extends Component {
 
   render() {
     return (
-        <div style={ this.styles.container }>
+      <div>
         <h1 style={ this.styles.header }> - Breweries - </h1>
+        <div style={ this.styles.container }>
         { this.props.selectedBreweries.map((v,i) => (
           <BreweryInfo 
             address={ v.address }
@@ -37,6 +41,7 @@ class ListBreweries extends Component {
             distance={ v.distance }
           />
           )) }
+          </div>
           </div>
     )  
   }

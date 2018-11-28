@@ -39,10 +39,12 @@ const styles = ({
   },
   breweryInfoName: {
     fontFamily: 'Montserrat, sans-serif',
-    fontSize: '20px'
+    fontSize: '20px',
+    color: '#333333'
   },
   breweryInfoAddress: {
     fontFamily: 'Montserrat, sans-serif',
-    fontSize: '10px'
+    fontSize: '10px',
+    color: '#333333'
   }
 })
