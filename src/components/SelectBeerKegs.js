@@ -18,7 +18,6 @@ class SelectBeerKegs extends Component {
 
   componentDidMount() {
     this.setState({selectedBeerKegs: this.props.beerKegs})
-    this.props.updateSelectedBeerKegs(this.props.beerKegs)
   }
 
   render() {

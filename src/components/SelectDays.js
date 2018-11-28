@@ -22,7 +22,6 @@ class SelectDays extends Component {
 
   componentDidMount() {
     this.setState({weekDays: this.props.weekDays})
-    this.props.updateSelectedWeekDays(this.props.weekDays)
   }
 
   render() {
