@@ -19,7 +19,6 @@ class SearchContainer extends Component {
     fontSize: '10px'
   }
 
-
   updateSelectedBeerStyles = (v) => {
     this.setState({beerStyles: v})
     const newState = {...this.state, beerStyles: v}
@@ -43,11 +42,13 @@ class SearchContainer extends Component {
     this.setState({position: {lat,lon}})
     this.props.updateQuery({...this.state, position:{lat, lon}})
   }
+
   componentDidMount() {
     const state = {
       beerStyles: this.props.beerStyles,
       beerKegs: this.props.beerKegs,
-      weekDays: this.props.weekDays
+      weekDays: this.props.weekDays,
+      position: null
     }
     this.setState(state)
     this.props.updateQuery(state)

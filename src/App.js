@@ -5,6 +5,7 @@ import SearchContainer from './components/SearchContainer'
 import ListBreweries from './components/ListBreweries'
 import { getWeekdays } from './functions'
 import ListBeers from './components/ListBeers';
+import { API_KEY } from './constants'
 
 class App extends Component {
 
@@ -15,12 +16,12 @@ class App extends Component {
     breweries: null,
     currentBrewery: null,
     searchResults: null,
-    userLocation: null,
-    weekDays: null
+    weekDays: null,
+    loading:false
   }
 
   searchContainerReady = () => {
-    return this.state.beerKegs && this.state.beerStyles && this.state.weekDays && this.state.breweries && this.state.beers
+    return this.state.beerKegs && this.state.beerStyles && this.state.weekDays && this.state.breweries && this.state.beers && this.state.loading
   }
 
   searchResultsReady = () => {
@@ -50,6 +51,7 @@ class App extends Component {
   updateCurrentBrewery = (currentBrewery) => {
     this.setState({currentBrewery})
   }
+
   getBeers = () => {
     request
     .get(`https://downloads.oberon.nl/opdracht/bieren.js`)
@@ -61,24 +63,41 @@ class App extends Component {
     })
     .catch(err => console.error(err))
   }
+
   getBreweries = () => {
     request
     .get(`https://downloads.oberon.nl/opdracht/brouwerijen.js`)
-    .then(result => {
-      const breweries = JSON.parse(result.text).breweries.map(v => {
+    .then(res => (JSON.parse(res.text).breweries))
+    .then(async res => (
+      await Promise.all(res.map(async v => {
         v.country = v.city.indexOf(',') === -1 ? 'nl' : 'be'
         v.city = v.city.indexOf(',') === -1 ? v.city : v.city.substring(0, v.city.indexOf(','))
+        v.searchStr = `${v.address},${v.zipcode},${v.city},${v.country}`
+        v.coords = await this.getCoords(v.searchStr)
         return v
-      })
-      this.setState({breweries, searchResults: breweries})
-    })
+      }))
+    ))
+    .then(res => this.setState({breweries: res, searchResults: res}))
     .catch(err => console.error(err))
   }
   getDays = () => {
     this.setState({weekDays: getWeekdays()})
   }
  
-
+  getBreweryCoords = async () => {
+    let results = []
+    for (const brewery of this.state.breweries) {
+      results.push(await this.getCoords(brewery.searchStr))
+    }
+    console.log(results)
+  }
+  getCoords = (searchStr) => {
+    console.log(process.env.GOOGLE_MAPS_API_KEY)
+    return request
+      .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchStr}&key=${API_KEY}`)
+      .then(res => JSON.parse(res.text).results[0].geometry.location)
+      .catch(err => console.error(err))
+  }
 
   componentDidMount() {
     this.getBeers()
@@ -131,6 +150,3 @@ const styles = ({
     fontSize: '10px'
   }
 })
-
-//bf365b22732a9f
-
