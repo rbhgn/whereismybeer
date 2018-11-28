@@ -9,20 +9,24 @@ const mapStyles = {
 };
 
 export class MapContainer extends Component {
-  getCenter = () => {
-    
+  getCenter = () => { 
     const latCenter = (this.props.breweryLocation.lat + this.props.userLocation.lat) / 2
     const lngCenter = (this.props.breweryLocation.lng + this.props.userLocation.lng) / 2
-    const result = {lat: latCenter, lng: lngCenter}
-    console.log(result)
-    return result
+    return {lat: latCenter, lng: lngCenter}
   }
-  render() {
+
+  getBounds = () => { 
     const bounds = new this.props.google.maps.LatLngBounds()
     this.props.breweryLocation && bounds.extend(this.props.breweryLocation)
     this.props.userLocation && bounds.extend(this.props.userLocation)
+    return bounds
+  }
+
+  render() {
+ 
 
     const center = this.props.breweryLocation && this.props.userLocation ? this.getCenter() : this.props.breweryLocation
+    const bounds = this.props.breweryLocation && this.props.userLocation ?this.getBounds() : null
 
     return (
 <div 
@@ -37,6 +41,7 @@ export class MapContainer extends Component {
 >
   <Map google={this.props.google} 
     initialCenter={ center} 
+    zoom={ 12 }
     center={ center }
     style={ mapStyles }
     bounds={ bounds }
