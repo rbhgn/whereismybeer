@@ -7,7 +7,22 @@ class GeoLocateButton extends Component {
     geoLocateAvailable: false,
     geoLocatePermission: false
   }
-
+  styles = {
+    button: {
+      width: '100%',
+      fontFamily: 'Montserrat, sans-serif', 
+      fontSize: '16px',
+      padding:'4px', 
+      background: '#b55c00', 
+      color: '#ffffff'
+    },
+    text: {
+      fontFamily: 'Montserrat, sans-serif',
+      fontSize: '16px',
+      padding:'4px',
+      color:'#333333'
+    }
+  }
   checkGeoLocate = () => {
     const geoLocateAvailable = navigator.geolocation ? true : false
     if (geoLocateAvailable) {
@@ -26,8 +41,8 @@ class GeoLocateButton extends Component {
     return (
       this.state.geoLocateAvailable && this.state.geoLocatePermission && this.state.geoLocatePermission !== 'denied' && 
         <div style={{textAlign: 'center'}}>
-        <button onClick={ this.handleClick } style={{width: '100%',fontFamily: 'Montserrat, sans-serif', fontSize: '16px',padding:'4px', background: '#b55c00', color: '#ffffff'}}>Find My Location</button>
-        Or
+        <button onClick={ this.handleClick } style={ this.styles.button }>Find My Location</button>
+          <span style={ this.styles.text } >Or </span>
         </div>
     )
   }
