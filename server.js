@@ -1,15 +1,17 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors')
 const app = express();
 const PORT = process.env.PORT || 4000;
-var cors = require('cors')
 
-app.use(cors({credentials: true, origin: true}))
+app.use(
+  cors(),
+  express.static(path.join(__dirname, 'build'))
+  )
 
-app.use( express.static(path.join(__dirname, 'build')) )
-
-app.get('*', function (req, res) {
- res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+app.get(
+  '*', 
+  (req, res) => res.sendFile(path.join(__dirname, 'build', 'index.html'))
+)
 
 app.listen(PORT);
