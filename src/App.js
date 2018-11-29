@@ -66,7 +66,7 @@ class App extends Component {
 
   getBeers = () => {
     request
-    .get(`https://downloads.oberon.nl/opdracht/bieren.js`)
+    .get(`https://cors-anywhere.herokuapp.com/https://downloads.oberon.nl/opdracht/bieren.js`)
     // .set('Access-Control-Allow-Origin', '*')
     // .withCredentials()
     .then(result  => {
@@ -80,7 +80,7 @@ class App extends Component {
 
   getBreweries = () => {
     request
-    .get(`https://downloads.oberon.nl/opdracht/brouwerijen.js`)
+    .get(`https://cors-anywhere.herokuapp.com/https://downloads.oberon.nl/opdracht/brouwerijen.js`)
     // .set('Access-Control-Allow-Origin', '*')
     // .withCredentials()
     .then(res => (JSON.parse(res.text).breweries))

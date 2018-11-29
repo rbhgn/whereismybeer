@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 
 class GeoLocateButton extends Component {
   state = {
-    geoLocateAvailable: false,
-    geoLocatePermission: false
+    geoLocateAvailable: true,
+    geoLocatePermission: true
   }
   styles = {
     button: {
@@ -23,19 +23,21 @@ class GeoLocateButton extends Component {
       color:'#333333'
     }
   }
-  checkGeoLocate = () => {
-    const geoLocateAvailable = navigator.geolocation ? true : false
-    if (geoLocateAvailable) {
-      navigator.permissions.query({'name': 'geolocation'}).then( permission => this.setState({geoLocatePermission: permission.state})).catch((err) => console.log(err))
-    }
-    this.setState({geoLocateAvailable})
-  }
+  // checkGeoLocate = () => {
+  //   const geoLocateAvailable = navigator.geolocation ? true : false
+  //   if (geoLocateAvailable) {
+  //     navigator.permissions.query({'name': 'geolocation'})
+  //     .then( permission => permission && this.setState({geoLocatePermission: permission.state}))
+  //     .catch((err) => console.log(err))
+  //   }
+  //   this.setState({geoLocateAvailable})
+  // }
 
   handleClick = () => {
     navigator.geolocation.getCurrentPosition(pos => this.props.updatePosition(pos.coords.latitude, pos.coords.longitude))
   }
   componentDidMount(){
-    this.checkGeoLocate()
+    // this.checkGeoLocate()
   }
   render() {
     return (
