@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import './App.css';
 import * as request from 'superagent'
+import { API_KEY } from './constants'
+
 import SearchContainer from './components/SearchContainer'
 import ListBreweries from './components/ListBreweries'
 import { getWeekdays, getDistance } from './functions'
 import ListBeers from './components/ListBeers';
-import { API_KEY } from './constants'
 import GoogleMap from './components/GoogleMap';
 import TopBar from './components/TopBar';
 import Animation from './components/Animation'
+
 class App extends Component {
 
   state = {
@@ -64,7 +66,9 @@ class App extends Component {
 
   getBeers = () => {
     request
-    .get(`https://downloads.oberon.nl/opdracht/bieren.js`)
+    .get(`https://cors-anywhere.herokuapp.com/https://downloads.oberon.nl/opdracht/bieren.js`)
+    // .set('Access-Control-Allow-Origin', '*')
+    // .withCredentials()
     .then(result  => {
       const beers = JSON.parse(result.text).beers
       const beerStyles = [...new Set(beers.map(e => e.style))]
@@ -76,7 +80,9 @@ class App extends Component {
 
   getBreweries = () => {
     request
-    .get(`https://downloads.oberon.nl/opdracht/brouwerijen.js`)
+    .get(`https://cors-anywhere.herokuapp.com/https://downloads.oberon.nl/opdracht/brouwerijen.js`)
+    // .set('Access-Control-Allow-Origin', '*')
+    // .withCredentials()
     .then(res => (JSON.parse(res.text).breweries))
     .then(async res => (
       await Promise.all(res.map(async v => {
@@ -102,20 +108,19 @@ class App extends Component {
   }
   getCoords = (searchStr) => {
     return request
-      .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchStr}&key=${API_KEY}`)
+      .get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/geocode/json?address=${searchStr}&key=${API_KEY}`)
       .then(res => JSON.parse(res.text).results[0].geometry.location)
       .catch(err => console.error(err))
   }
 
   getAddress = (searchStr) => {
     return request
-      .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${searchStr}&key=${API_KEY}`)
+      .get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/geocode/json?latlng=${searchStr}&key=${API_KEY}`)
       .then(res => JSON.parse(res.text).results[0])
       .catch(err => console.error(err))
   }
 
   componentDidMount() {
-    this.getAddress('TUIN VAN HALO 15, heerhugowaard')
     this.getBeers()
     this.getBreweries()
     this.getDays()
