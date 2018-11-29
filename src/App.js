@@ -108,14 +108,14 @@ class App extends Component {
   }
   getCoords = (searchStr) => {
     return request
-      .get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/geocode/json?address=${searchStr}&key=${API_KEY}`)
+      .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchStr}&key=${API_KEY}`)
       .then(res => JSON.parse(res.text).results[0].geometry.location)
       .catch(err => console.error(err))
   }
 
   getAddress = (searchStr) => {
     return request
-      .get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/geocode/json?latlng=${searchStr}&key=${API_KEY}`)
+      .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${searchStr}&key=${API_KEY}`)
       .then(res => JSON.parse(res.text).results[0])
       .catch(err => console.error(err))
   }
