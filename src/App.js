@@ -115,6 +115,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.getAddress('TUIN VAN HALO 15, heerhugowaard')
     this.getBeers()
     this.getBreweries()
     this.getDays()
