@@ -40,7 +40,6 @@ class Canvas extends Component {
   }
   
   componentDidUpdate() {
-    const {angle} = this.props;
     const width = this.ctx.canvas.width;
     const height = this.ctx.canvas.height;
     this.ctx.save();
@@ -52,6 +51,8 @@ class Canvas extends Component {
       this.ctx.globalAlpha= 0.8
       this.ctx.lineWidth=0.5
       this.ctx.stroke()
+      this.ctx.closePath()
+      return v
     })
     this.ctx.restore();
   }

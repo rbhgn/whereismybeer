@@ -83,7 +83,7 @@ class App extends Component {
         v.country = v.city.indexOf(',') === -1 ? 'nl' : 'be'
         v.city = v.city.indexOf(',') === -1 ? v.city : v.city.substring(0, v.city.indexOf(','))
         v.searchStr = `${v.address},${v.zipcode},${v.city},${v.country}`
-        // v.coords = await this.getCoords(v.searchStr)
+        v.coords = await this.getCoords(v.searchStr)
         return v
       }))
     ))
