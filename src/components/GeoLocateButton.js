@@ -24,7 +24,11 @@ class GeoLocateButton extends Component {
   }
   render() {
     return (
-      this.state.geoLocateAvailable && this.state.geoLocatePermission && this.state.geoLocatePermission !== 'denied' && <button onClick={ this.handleClick }>FindMyPosition</button>
+      this.state.geoLocateAvailable && this.state.geoLocatePermission && this.state.geoLocatePermission !== 'denied' && 
+        <div style={{textAlign: 'center'}}>
+        <button onClick={ this.handleClick } style={{width: '100%',fontFamily: 'Montserrat, sans-serif', fontSize: '16px',padding:'4px', background: '#b55c00', color: '#ffffff'}}>Find My Location</button>
+        Or
+        </div>
     )
   }
 }

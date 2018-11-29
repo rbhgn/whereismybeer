@@ -39,7 +39,7 @@ export class MapContainer extends Component {
         <h1 style={ mapStyles.title }> - Map - </h1>
       
 <div 
-  style={{ height: 350, 
+  style={{ 
     width: '100%', 
     height: '250px',
     display: 'flex', 

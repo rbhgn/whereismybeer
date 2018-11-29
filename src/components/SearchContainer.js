@@ -5,6 +5,7 @@ import SelectBeerKegs from './SelectBeerKegs'
 import SelectDays from './SelectDays'
 import GeoLocateButton from './GeoLocateButton';
 import LocationInput from './LocationInput';
+import CurrentLocation from './CurrentLocation'
 
 class SearchContainer extends Component {
   state = {
@@ -86,7 +87,7 @@ class SearchContainer extends Component {
       <div>
         <h1 style={ this.styles.title }> - Location - </h1>
         <div style={ this.styles.location }>
-          <p>{ this.props.currentLocation }</p>
+          { <CurrentLocation currentLocation={ this.props.currentLocation }/> }
           { <GeoLocateButton updatePosition={ this.updatePosition }/> }
           { <LocationInput getCoords={ this.props.getCoords } updatePosition={ this.updatePosition } />}
         </div>
@@ -124,7 +125,8 @@ SearchContainer.propTypes = {
   beerStyles: PropTypes.array.isRequired,
   beerKegs: PropTypes.array.isRequired,
   weekDays: PropTypes.array.isRequired,
-  updateQuery: PropTypes.func.isRequired
+  updateQuery: PropTypes.func.isRequired,
+  currentLocation: PropTypes.string.isRequired
 }
 
 export default SearchContainer
