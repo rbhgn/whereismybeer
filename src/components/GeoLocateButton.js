@@ -26,7 +26,7 @@ class GeoLocateButton extends Component {
   checkGeoLocate = () => {
     const geoLocateAvailable = navigator.geolocation ? true : false
     if (geoLocateAvailable) {
-      navigator.permissions.query({'name': 'geolocation'}).then( permission => this.setState({geoLocatePermission: permission.state}))
+      navigator.permissions.query({'name': 'geolocation'}).then( permission => this.setState({geoLocatePermission: permission.state})).catch((err) => console.log(err))
     }
     this.setState({geoLocateAvailable})
   }
