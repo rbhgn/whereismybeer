@@ -6,9 +6,9 @@ class BreweryInfo extends Component {
 
   render() {
     return (
-      <div style={ styles.breweryInfoContainer } onClick={ this.props.selectBrewery(this.props.index) } >
+      <div style={ this.props.selected ? styles.selected : styles.breweryInfoContainer } onClick={ this.props.selectBrewery(this.props.index) } >
         <div style={ styles.breweryInfoName }>
-          { !isNaN(this.props.distance) &&  Math.round(this.props.distance) + ' KM'} { this.props.name.toUpperCase() } { this.props.selected && '*' }
+          { !isNaN(this.props.distance) &&  Math.round(this.props.distance) + ' KM'} { this.props.name.toUpperCase() }
         </div>
         <div style={ styles.breweryInfoAddress }>
           { this.props.address }, { this.props.zipcode }, { this.props.city }
@@ -31,11 +31,20 @@ BreweryInfo.propTypes = {
 const styles = ({
   breweryInfoContainer: {
     width: '100%',
-    padding: '0',
-    margin: '4px',
+    padding: '4px 10px',
+    margin: '0',
     overflow: 'hidden',
     display: 'inline-block',
     cursor: 'pointer'
+  },
+  selected: {
+    width: '100%',
+    padding: '4px 10px',
+    margin: '0',
+    overflow: 'hidden',
+    display: 'inline-block',
+    cursor: 'pointer',
+    background: '#eeeeee'
   },
   breweryInfoName: {
     fontFamily: 'Montserrat, sans-serif',

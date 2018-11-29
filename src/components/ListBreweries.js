@@ -6,9 +6,10 @@ class ListBreweries extends Component {
   styles = {
     container: {
       background: '#ffffff',
-      padding: '10px',
+      padding: '0px',
       borderRadius:'10px',
-      boxShadow: '0px 0px 25px 1px #d2c200'
+      boxShadow: '0px 0px 25px 1px #d2c200',
+      overflow: 'hidden'
     },
     header: {
       fontFamily: 'Raleway, sans-serif',
