@@ -8,7 +8,7 @@ import ListBeers from './components/ListBeers';
 import { API_KEY } from './constants'
 import GoogleMap from './components/GoogleMap';
 import TopBar from './components/TopBar';
-
+import Animation from './components/Animation'
 class App extends Component {
 
   state = {
@@ -123,7 +123,9 @@ class App extends Component {
   render() {
     return (
       <div style={ styles.container }>
-        <TopBar />
+      <TopBar />
+        
+      <Animation />
         <div style={ styles.wrapperSide }>
           { this.searchContainerReady() && <SearchContainer 
             beerStyles={ this.state.beerStyles} 
@@ -174,12 +176,14 @@ const styles = ({
     width: '25%',
     margin: '10px',
     paddingTop: '40px',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    zIndex: '2'
   },
   wrapperMiddle: {
     width: '40%',
     margin: '10px',
     paddingTop: '40px',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    zIndex: '2'
   }
 })
