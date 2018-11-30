@@ -46,7 +46,7 @@ class Canvas extends Component {
     this.ctx.clearRect(0, 0, width, height);
     bubbles.map(v => {
       this.ctx.beginPath();
-      this.ctx.arc(v.x, v.y,5,0,2*Math.PI)
+      this.ctx.arc(v.x, v.y, v.r, 0, 2*Math.PI)
       this.ctx.strokeStyle="#ffffff"
       this.ctx.globalAlpha= 0.8
       this.ctx.lineWidth=0.5
@@ -92,6 +92,7 @@ class Bubble {
   constructor(x, y) {
     this.x = x;
     this.y = y;
+    this.r = [3, 4, 5][Math.floor(Math.random() * 3) ]
   }
 }
 
