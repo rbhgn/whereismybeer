@@ -5,6 +5,14 @@ import PropTypes from 'prop-types'
 class LocationInput extends Component {
   state = {inputValue: ''}
 
+  styles = {
+    width: 'calc(100% - 12px)',
+    fontFamily: 'Montserrat, sans-serif', 
+    fontSize: '16px',
+    padding:'4px',
+    color: '#333333'
+  }
+
   onChange = (e) => {
     this.setState({inputValue: e.target.value})
   }
@@ -19,10 +27,11 @@ class LocationInput extends Component {
     }
     this.setState({inputValue: ''})
   }
+  
   render() {
     return (
       <form onSubmit={ this.onSubmit }>
-        <input type='text' value={ this.state.inputValue } onChange={ this.onChange } style={{width: 'calc(100% - 12px)',fontFamily: 'Montserrat, sans-serif', fontSize: '16px',padding:'4px',color: '#333333'}} placeholder='Your Address'></input>
+        <input type='text' value={ this.state.inputValue } onChange={ this.onChange } style={ this.styles } placeholder='Your Address'></input>
         <button style={{width: '100%',fontFamily: 'Montserrat, sans-serif', fontSize: '16px',padding:'4px', background: '#b55c00', color: '#ffffff'}}>Find Address</button>
       </form>
     )

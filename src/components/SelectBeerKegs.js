@@ -4,7 +4,11 @@ import CheckBox from './CheckBox'
 
 class SelectBeerKegs extends Component {
   state = { selectedBeerKegs: null }
-  styles = {display: 'flex', flexDirection: 'column'}
+  styles = {
+    display: 'flex', 
+    flexDirection: 'column'
+  }
+  
   handleChange = (value, checked) => {
     let newState = null
     if (!checked && this.state.selectedBeerKegs.includes(value)) {

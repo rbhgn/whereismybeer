@@ -6,7 +6,10 @@ import CheckBox from './CheckBox'
 class SelectDays extends Component {
   state = ({weekDays: null})
 
-  styles = {display: 'flex', flexDirection: 'column'}
+  styles = {
+    display: 'flex', 
+    flexDirection: 'column'
+  }
 
   handleChange = (value, checked) => {
 

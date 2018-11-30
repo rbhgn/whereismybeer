@@ -84,34 +84,42 @@ class SearchContainer extends Component {
   
     return (
       <div>
+
         <h1 style={ this.styles.title }> - Location - </h1>
+
         <div style={ this.styles.location }>
           { <CurrentLocation currentLocation={ this.props.currentLocation }/> }
           { <LocationInput getCoords={ this.props.getCoords } updatePosition={ this.updatePosition } />}
         </div>
+
         <h1 style={ this.styles.title }> - Filter - </h1>
+
         <div style={ this.styles.filters }>
-        <div>
-          <h2 style={ this.styles.header }>Styles</h2>
-          <SelectBeerStyles 
-            beerStyles={ this.props.beerStyles } 
-            updateSelectedBeerStyles={ this.updateSelectedBeerStyles }
-          />
-        </div>
-        <div>
-          <h2 style={ this.styles.header }>Kegs</h2>
-          <SelectBeerKegs 
-            beerKegs={ this.props.beerKegs } 
-            updateSelectedBeerKegs={ this.updateSelectedBeerKegs }
-          />
-        </div>
-        <div>
-          <h2 style={ this.styles.header }>Open</h2>
-          <SelectDays 
-            weekDays={ this.props.weekDays } 
-            updateSelectedWeekDays={ this.updateSelectedWeekDays }
-          />
+
+          <div>
+            <h2 style={ this.styles.header }>Styles</h2>
+            <SelectBeerStyles 
+              beerStyles={ this.props.beerStyles } 
+              updateSelectedBeerStyles={ this.updateSelectedBeerStyles }
+            />
           </div>
+
+          <div>
+            <h2 style={ this.styles.header }>Kegs</h2>
+            <SelectBeerKegs 
+              beerKegs={ this.props.beerKegs } 
+              updateSelectedBeerKegs={ this.updateSelectedBeerKegs }
+            />
+          </div>
+
+          <div>
+            <h2 style={ this.styles.header }>Open</h2>
+            <SelectDays 
+              weekDays={ this.props.weekDays } 
+              updateSelectedWeekDays={ this.updateSelectedWeekDays }
+            />
+            </div>
+            
           </div>
 
       </div>

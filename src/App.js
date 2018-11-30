@@ -26,6 +26,35 @@ class App extends Component {
     currentLocation: 'No location found'
   }
 
+  styles = {
+    container: {
+      width: '100vw',
+      minHeight: '100vh',
+      margin: '0',
+      padding: '0',
+      display: 'flex',
+      justifyContent: 'space-evenly',
+      background: 'linear-gradient(135deg, #d2c200 0%,#b55c00 100%)',
+      zIndex: 0
+    },
+    wrapperSide: {
+      width: '25%',
+      margin: '10px',
+      paddingTop: '70px',
+      overflow: 'hidden',
+      zIndex: 10,
+      position: 'relative'
+    },
+    wrapperMiddle: {
+      width: '40%',
+      margin: '10px',
+      paddingTop: '70px',
+      overflow: 'hidden',
+      zIndex: 10,
+      position: 'relative'
+    }
+  }
+
   searchContainerReady = () => {
     return this.state.beerKegs && this.state.beerStyles && this.state.weekDays && this.state.breweries && this.state.beers
   }
@@ -113,11 +142,11 @@ class App extends Component {
 
   render() {
     return (
-      <div style={ styles.container }>
+      <div style={ this.styles.container }>
       <TopBar />
         
       <Animation />
-        <div style={ styles.wrapperSide }>
+        <div style={ this.styles.wrapperSide }>
           { this.searchContainerReady() && <SearchContainer 
             beerStyles={ this.state.beerStyles} 
             beerKegs={ this.state.beerKegs} 
@@ -128,14 +157,14 @@ class App extends Component {
             currentLocation={ this.state.currentLocation }
           />}
         </div>
-        <div style={ styles.wrapperMiddle }>
+        <div style={ this.styles.wrapperMiddle }>
           { this.searchResultsReady() && <ListBreweries 
             selectedBreweries={ this.state.searchResults } 
             updateCurrentBrewery={ this.updateCurrentBrewery }
             currentBrewery={ this.state.currentBrewery }
           /> }
         </div>
-        <div style={ styles.wrapperSide }>
+        <div style={ this.styles.wrapperSide }>
           { this.state.query && this.state.currentBrewery && this.searchResultsReady && <GoogleMap 
             userLocation={ this.state.query.position } 
             breweryLocation={ this.state.currentBrewery.coords }
@@ -152,32 +181,3 @@ class App extends Component {
 }
 
 export default App;
-
-const styles = ({
-  container: {
-    width: '100vw',
-    minHeight: '100vh',
-    margin: '0',
-    padding: '0',
-    display: 'flex',
-    justifyContent: 'space-evenly',
-    background: 'linear-gradient(135deg, #d2c200 0%,#b55c00 100%)',
-    zIndex: 0
-  },
-  wrapperSide: {
-    width: '25%',
-    margin: '10px',
-    paddingTop: '70px',
-    overflow: 'hidden',
-    zIndex: 10,
-    position: 'relative'
-  },
-  wrapperMiddle: {
-    width: '40%',
-    margin: '10px',
-    paddingTop: '70px',
-    overflow: 'hidden',
-    zIndex: 10,
-    position: 'relative'
-  }
-})

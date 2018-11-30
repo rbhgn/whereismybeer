@@ -18,6 +18,7 @@ class ListBreweries extends Component {
       color: '#ffffff'
     }
   }
+  
   selectBrewery = (i) => (e) => {
     const selectedBrewery = this.props.selectedBreweries[i]
     this.props.updateCurrentBrewery(selectedBrewery)

@@ -56,5 +56,5 @@ BreweryInfo.propTypes = {
   open:     PropTypes.array.isRequired,
   zipcode:  PropTypes.string.isRequired,
   selected: PropTypes.bool.isRequired,
-  distance: PropTypes.string
+  distance: PropTypes.number
 }

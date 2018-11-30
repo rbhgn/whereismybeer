@@ -15,6 +15,7 @@ const mapStyles = {
 };
 
 export class MapContainer extends Component {
+
   getCenter = () => { 
     const latCenter = (this.props.breweryLocation.lat + this.props.userLocation.lat) / 2
     const lngCenter = (this.props.breweryLocation.lng + this.props.userLocation.lng) / 2
@@ -30,7 +31,6 @@ export class MapContainer extends Component {
 
   render() {
  
-
     const center = this.props.breweryLocation && this.props.userLocation ? this.getCenter() : this.props.breweryLocation
     const bounds = this.props.breweryLocation && this.props.userLocation ?this.getBounds() : null
 
