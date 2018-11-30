@@ -56,7 +56,6 @@ class App extends Component {
 
   updateQuery = async (query) => {
     if (this.state.query && JSON.stringify(this.state.query.position) !== JSON.stringify(query.position)) {
-      console.log(query)
       const getLocation = await this.getAddress(`${query.position.lat},${query.position.lng}`)
       const currentLocation = getLocation ? getLocation.formatted_address : 'No location found'
       this.setState({currentLocation})
