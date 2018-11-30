@@ -83,7 +83,7 @@ const updateBubbles =  () => {
   for (let i = bubbles.length - 1; i >= 0; i--) {
       
       if (bubbles[i].y < 70) {
-        if (bubbles.length > 400) {
+        if (bubbles.length > 600) {
           bubbles.splice(0, 1)
         }
       } else {
