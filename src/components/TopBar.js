@@ -15,7 +15,8 @@ class TopBar extends Component {
       alignItems: 'center',
       fontFamily: 'Carter One, cursive',
       fontSize: '38px',
-      color: '#b55c00'
+      color: '#b55c00',
+      boxShadow: '0px 10px 20px 10px rgba(255,255,255,1)'
     }
   }
 
