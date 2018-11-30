@@ -167,7 +167,7 @@ const styles = ({
   wrapperSide: {
     width: '25%',
     margin: '10px',
-    paddingTop: '60px',
+    paddingTop: '70px',
     overflow: 'hidden',
     zIndex: 10,
     position: 'relative'
@@ -175,7 +175,7 @@ const styles = ({
   wrapperMiddle: {
     width: '40%',
     margin: '10px',
-    paddingTop: '60px',
+    paddingTop: '70px',
     overflow: 'hidden',
     zIndex: 10,
     position: 'relative'
