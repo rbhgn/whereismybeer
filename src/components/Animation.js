@@ -81,9 +81,13 @@ const bubbles = []
 
 const updateBubbles =  () => {
   for (let i = bubbles.length - 1; i >= 0; i--) {
-      bubbles[i].y -= 1
-      if (bubbles[i] < 0) {
-        bubbles.splice(i, 1)
+      
+      if (bubbles[i].y < 70) {
+        if (bubbles.length > 400) {
+          bubbles.splice(0, 1)
+        }
+      } else {
+        bubbles[i].y -= 1
       }
   }
 }
