@@ -11,6 +11,8 @@ import GoogleMap from './components/GoogleMap';
 import TopBar from './components/TopBar';
 import Animation from './components/Animation'
 
+import { beersData, breweryData } from './data'
+
 class App extends Component {
 
   state = {
@@ -36,6 +38,7 @@ class App extends Component {
     const beers = this.state.beers
       .filter(beer => query.beerStyles.includes(beer.style))
       .filter(beer => query.beerKegs.includes(beer.keg))
+
     const breweries = this.state.breweries
       .filter(brewery => brewery.open.some(day => query.weekDays.includes(day)))
       .filter(brewery => beers.some(beer => beer.brewery === brewery.name))
@@ -45,7 +48,9 @@ class App extends Component {
         return v
         })
         .sort((a, b) => a.distance - b.distance)
+
     const currentBrewery = this.state.currentBrewery && breweries.some(v => v.name === this.state.currentBrewery.name) ?this.state.currentBrewery : breweries[0]
+    
     this.setState({searchResults: breweries, currentBrewery})
   }
 
@@ -65,47 +70,28 @@ class App extends Component {
   }
 
   getBeers = () => {
-    request
-    .get(`https://cors-anywhere.herokuapp.com/https://downloads.oberon.nl/opdracht/bieren.js`)
-    // .set('Access-Control-Allow-Origin', '*')
-    // .withCredentials()
-    .then(result  => {
-      const beers = JSON.parse(result.text).beers
+      const beers = beersData.beers
       const beerStyles = [...new Set(beers.map(e => e.style))]
       const beerKegs = [...new Set(beers.map(e => e.keg))]
       this.setState({beers, beerStyles, beerKegs, searchResults:{beers}})
-    })
-    .catch(err => console.error(err))
   }
 
-  getBreweries = () => {
-    request
-    .get(`https://cors-anywhere.herokuapp.com/https://downloads.oberon.nl/opdracht/brouwerijen.js`)
-    // .set('Access-Control-Allow-Origin', '*')
-    // .withCredentials()
-    .then(res => (JSON.parse(res.text).breweries))
-    .then(async res => (
-      await Promise.all(res.map(async v => {
-        v.country = v.city.indexOf(',') === -1 ? 'nl' : 'be'
-        v.city = v.city.indexOf(',') === -1 ? v.city : v.city.substring(0, v.city.indexOf(','))
-        v.searchStr = `${v.address},${v.zipcode},${v.city},${v.country}`
-        v.coords = await this.getCoords(v.searchStr)
-        return v
-      }))
-    ))
-    .then(res => this.setState({breweries: res, searchResults: res}))
-    .catch(err => console.error(err))
+  getBreweries = async () => {
+    const rawBreweries = breweryData.breweries
+    const breweries = await Promise.all(rawBreweries.map(async v => {
+          v.country = v.city.indexOf(',') === -1 ? 'nl' : 'be'
+          v.city = v.city.indexOf(',') === -1 ? v.city : v.city.substring(0, v.city.indexOf(','))
+          v.searchStr = `${v.address},${v.zipcode},${v.city},${v.country}`
+          v.coords = await this.getCoords(v.searchStr)
+          return v
+        }))
+        this.setState({breweries, searchResults: breweries})
   }
+
   getDays = () => {
     this.setState({weekDays: getWeekdays()})
   }
  
-  getBreweryCoords = async () => {
-    let results = []
-    for (const brewery of this.state.breweries) {
-      results.push(await this.getCoords(brewery.searchStr))
-    }
-  }
   getCoords = (searchStr) => {
     return request
       .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchStr}&key=${API_KEY}`)
@@ -177,19 +163,22 @@ const styles = ({
     display: 'flex',
     justifyContent: 'space-evenly',
     background: 'linear-gradient(135deg, #d2c200 0%,#b55c00 100%)',
+    zIndex: 0
   },
   wrapperSide: {
     width: '25%',
     margin: '10px',
     paddingTop: '40px',
     overflow: 'hidden',
-    zIndex: '2'
+    zIndex: 10,
+    position: 'relative'
   },
   wrapperMiddle: {
     width: '40%',
     margin: '10px',
     paddingTop: '40px',
     overflow: 'hidden',
-    zIndex: '2'
+    zIndex: 10,
+    position: 'relative'
   }
 })

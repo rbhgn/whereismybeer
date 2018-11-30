@@ -67,8 +67,8 @@ class PureCanvas extends Component {
   
   render() {
     return (
-      <div style={{position: 'absolute', width: '100vw', height: '100vh', top: '0', left:'0'}}>
-      <canvas width={ window.innerWidth } height={ window.innerHeight }
+      <div style={{position: 'absolute', width: '100%', height: '100%', top: '0', left:'0', zIndex: 1}}>
+      <canvas width={ window.innerWidth } height={ window.innerHeight } style={{zIndex: 0}}
         ref={node => node ? this.props.contextRef(node.getContext('2d')) : null}
       />
       </div>
