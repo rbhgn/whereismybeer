@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import SelectBeerStyles from './SelectBeerStyles'
 import SelectBeerKegs from './SelectBeerKegs'
 import SelectDays from './SelectDays'
-import GeoLocateButton from './GeoLocateButton';
 import LocationInput from './LocationInput';
 import CurrentLocation from './CurrentLocation'
 
@@ -88,7 +87,6 @@ class SearchContainer extends Component {
         <h1 style={ this.styles.title }> - Location - </h1>
         <div style={ this.styles.location }>
           { <CurrentLocation currentLocation={ this.props.currentLocation }/> }
-          { <GeoLocateButton updatePosition={ this.updatePosition }/> }
           { <LocationInput getCoords={ this.props.getCoords } updatePosition={ this.updatePosition } />}
         </div>
         <h1 style={ this.styles.title }> - Filter - </h1>
